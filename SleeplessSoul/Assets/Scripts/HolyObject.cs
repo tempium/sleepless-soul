@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DirectionGauge : MonoBehaviour {
+public class HolyObject : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
