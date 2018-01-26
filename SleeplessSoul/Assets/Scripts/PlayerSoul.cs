@@ -20,6 +20,14 @@ public class PlayerSoul : MonoBehaviour {
             Vector2 direction = new Vector2(Input.mousePosition.x - transform.position.x, Input.mousePosition.y - transform.position.y);
             Move(direction.normalized);
         }
+        
+        // [Kris] Manual controls for testing collision with Firewall
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            Vector2 direction = Vector2.down;
+            Move(direction.normalized);
+        }
+        
 	}
 
     void Move(Vector2 direction) {
