@@ -21,6 +21,7 @@ public class PlayerSoul : MonoBehaviour {
             Vector2 direction = new Vector2(Input.mousePosition.x - transform.position.x, Input.mousePosition.y - transform.position.y);
             Move(direction.normalized);
         }
+    
         else if (rb.velocity.sqrMagnitude == 0) {
             anim.SetBool("IsMove", false);
         }
