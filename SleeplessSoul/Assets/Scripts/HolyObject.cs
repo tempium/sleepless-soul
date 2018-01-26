@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class HolyObject : MonoBehaviour
 {
-
     public float pushForce;
 
     private Rigidbody2D rb;
