@@ -8,21 +8,26 @@ public class PlayerSoul : MonoBehaviour {
 
     private Rigidbody2D rb;
     private GameObject body;
+    private Animator anim;
 
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         if (Input.GetKeyDown(KeyCode.Space)) {
             Vector2 direction = new Vector2(Input.mousePosition.x - transform.position.x, Input.mousePosition.y - transform.position.y);
             Move(direction.normalized);
         }
+        else if (rb.velocity.sqrMagnitude == 0) {
+            anim.SetBool("IsMove", false);
+        }
 	}
 
     void Move(Vector2 direction) {
+        anim.SetBool("IsMove", true);
         rb.velocity = direction * moveSpeed;
     }
 }
