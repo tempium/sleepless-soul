@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OuterDetect : MonoBehaviour {
-
-    private Vector2 newVector;
-
+public class OuterDetect : MonoBehaviour
+{
+    
     void OnTriggerEnter2D(Collider2D other)
     {
-        other.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
-        newVector = transform.position - other.gameObject.transform.position;
+        Vector2 newVector = transform.position - other.gameObject.transform.position;
         other.gameObject.GetComponent<Rigidbody2D>().velocity = newVector;
- 
     }
+
 }

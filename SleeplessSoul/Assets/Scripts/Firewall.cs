@@ -25,7 +25,10 @@ public class Firewall : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Destroyed Object");
-        Destroy(other.gameObject);
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Object")
+        {
+            Destroy(other.gameObject);
+        }
     }
     
 }

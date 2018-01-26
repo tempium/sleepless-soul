@@ -6,8 +6,9 @@ public class RepeatingBackground : MonoBehaviour {
 
 	private BoxCollider2D m_backgroundCollider;
 	private float m_BackgroundSize;
-	// Use this for initialization
-	void Start () {
+    private float ySize = 0.723548f;
+    // Use this for initialization
+    void Start () {
 		m_backgroundCollider = GetComponent<BoxCollider2D> ();
 		m_BackgroundSize = m_backgroundCollider.size.y;
 	}
@@ -20,7 +21,7 @@ public class RepeatingBackground : MonoBehaviour {
 
 	void RepeateBackground()
 	{
-		Vector2 BGoffset = new Vector2 (0, m_BackgroundSize * 3f);
+		Vector2 BGoffset = new Vector2 (0, m_BackgroundSize * 3f * ySize);
 		transform.position = (Vector2)transform.position + BGoffset;
 	}
 }

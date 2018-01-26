@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class scrollingObject : MonoBehaviour {
+public class ScrollingObject : MonoBehaviour {
 
 	private Rigidbody2D RIGIDBODY;
 	private float speed = -2f;
