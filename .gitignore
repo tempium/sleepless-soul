@@ -39,3 +39,11 @@ sysinfo.txt
 Thumbs.db*
 ehthumbs.db*
 ehthumbs_vista.db*
+
+# MacOS General files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# MacOS Thumbnails
+._*

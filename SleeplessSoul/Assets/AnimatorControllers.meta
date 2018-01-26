@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:SleeplessSoul/Assets/Animations.meta
+guid: f1972e5888fcf4d219ea3fbdd832d55a
+folderAsset: yes
+timeCreated: 1516979607
+=======
 guid: 7cd0e60394b800047a0895f815817c00
 folderAsset: yes
 timeCreated: 1516984732
+>>>>>>> master:SleeplessSoul/Assets/AnimatorControllers.meta
 licenseType: Free
 DefaultImporter:
   externalObjects: {}

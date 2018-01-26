@@ -280,8 +280,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d166126b0f55e0a42974db29bd896eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firewallObject: {fileID: 1756528886}
-  collisionOffsetFromTop: 0
 --- !u!61 &1756528890
 BoxCollider2D:
   m_ObjectHideFlags: 0
