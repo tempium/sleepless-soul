@@ -16,13 +16,20 @@ public class PlayerSoul : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        /*if (Input.GetKeyDown(KeyCode.Space)) {
             Vector2 direction = new Vector2(Input.mousePosition.x - transform.position.x, Input.mousePosition.y - transform.position.y);
             Move(direction.normalized);
-        }
-	}
+        }*/
 
-    void Move(Vector2 direction) {
+    }
+
+    public void Move(Vector2 direction) {
         rb.velocity = direction * moveSpeed;
+    }
+
+    public void returnToGauge(Vector2 pos)
+    {
+        transform.position = pos;
+        rb.velocity = new Vector2(0, 0);
     }
 }
