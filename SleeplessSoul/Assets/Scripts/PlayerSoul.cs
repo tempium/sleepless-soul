@@ -28,7 +28,19 @@ public class PlayerSoul : MonoBehaviour {
 	}
 
     void Move(Vector2 direction) {
+<<<<<<< HEAD
         anim.SetBool("IsMove", true);
         rb.velocity = direction * moveSpeed;
     }
+=======
+        anim.SetBool("IsMove", true);`
+        rb.velocity = direction * moveSpeed;
+    }
+
+    public void returnToGauge(Vector2 pos)
+    {
+        transform.position = pos;
+        rb.velocity = new Vector2(0, 0);
+    }
+>>>>>>> master
 }

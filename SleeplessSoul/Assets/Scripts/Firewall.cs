@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 public class Firewall : MonoBehaviour {
 
     public GameObject firewallObject;
