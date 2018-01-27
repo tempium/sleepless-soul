@@ -5,20 +5,22 @@ using UnityEngine;
 public class InnerDetect : MonoBehaviour {
 
     private PlayerSoul playerSoul;
+    private OuterDetect outerDetect;
 
     private void Start() {
         playerSoul = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSoul>();
+        outerDetect = transform.parent.GetComponentInChildren<OuterDetect>();
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerStay2D(Collider2D other)
     {
-        if (!playerSoul.isPossess) {
+        if (playerSoul.isOut || (playerSoul.isPossess && !outerDetect.IsPull())) {
             return;
         }
         other.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         if (other.CompareTag("Player")) {
-            other.GetComponent<PlayerSoul>().Possess();
-            transform.parent.GetComponentInChildren<OuterDetect>().StopPull();
+            playerSoul.Possess();
+            outerDetect.StopPull();
         }
     }
 }
