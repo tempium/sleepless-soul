@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InnerDetect : MonoBehaviour {
 
+    private PlayerSoul soul;
 
     void OnTriggerEnter2D(Collider2D other)
     { 

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class OuterDetect : MonoBehaviour
 {
-
     private bool pull = false;
     private Animator anim;
 
