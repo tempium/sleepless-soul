@@ -20,8 +20,6 @@ public class PlayerSoul : MonoBehaviour {
     public bool isInside = false;
     private float timer;
 
-    public CursedObject cursedObject;
-
     public bool isPullBack;
     public bool isPullCurse;
     public bool isAtGauge;
@@ -113,6 +111,11 @@ public class PlayerSoul : MonoBehaviour {
     public void Stop() { 
         anim.SetBool("IsMove", false);
         isMove = false;
+        if (isOut) {
+            isOut = false;
+            body.GetComponentInChildren<OuterDetect>().StartPull();
+            Possessing(body);
+        }
         rb.velocity = new Vector2(0, 0);
 
         if (!isInside && !isPossess) {
@@ -124,6 +127,7 @@ public class PlayerSoul : MonoBehaviour {
     public void Possessing(GameObject body) {
         isMove = false;
         isPossess = true;
+        isOut = false;
         
         anim.SetBool("IsPossess", true);
         this.body = body;
