@@ -10,7 +10,6 @@ public class DirectionGauge : MonoBehaviour
     private static bool isCW;
     private static int speed;
     private static bool isSpace;
-    private static bool isMove;
 
     public static Quaternion rotation;
 
@@ -20,12 +19,12 @@ public class DirectionGauge : MonoBehaviour
     {
         isCW = false;
         speed = 5;
-        isMove = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        isSpace = false;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             isSpace = true;
@@ -33,15 +32,13 @@ public class DirectionGauge : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Return))
         {
             isSpace = false;
-            isMove = false;
             soul.returnToGauge(transform.position);
         }
 
-        if (isSpace && !isMove)
+        if (isSpace)
         {
             // print(transform.eulerAngles.z);
             // print(Mathf.Sin(transform.eulerAngles.z));
-            isMove = true;
             soul.Move(new Vector2(Mathf.Cos(transform.eulerAngles.z * Mathf.PI / 180),Mathf.Sin(transform.eulerAngles.z * Mathf.PI / 180)));
             return;
         }
