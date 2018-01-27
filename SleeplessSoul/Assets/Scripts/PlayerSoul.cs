@@ -52,6 +52,7 @@ public class PlayerSoul : MonoBehaviour {
     void Update()
     {
         Debug.Log(playerState);
+
         // Update distance to linked cursed object
         distanceToLinkedCursedObject = (transform.position - linkedCursedObject.transform.position).magnitude;
         outerRadiusOfLinkedCursedObject = linkedCursedObject.GetComponentInChildren<OuterDetect>().GetComponent<CircleCollider2D>().radius;
@@ -62,19 +63,25 @@ public class PlayerSoul : MonoBehaviour {
             playerState = PlayerState.FLOAT;
         }
 
-        // Handle animation of alpha value for arrive
+        // Handle animation of alpha value for ARRIVE
         if (playerState == PlayerState.ARRIVE) {
             float closeness = Mathf.Clamp01(distanceToLinkedCursedObject / outerRadiusOfLinkedCursedObject);
             render.color = new Color(1, 1, 1, closeness);
             transform.localScale = new Vector3(closeness, closeness, transform.localScale.z);
         }
 
-        // Handle animation of alpha value for depart
-        if (playerState == PlayerState.DEPART) {
-            
+        // Handle animation of alpha value for DEPART
+        else if (playerState == PlayerState.DEPART) {
             float closeness = Mathf.Clamp01(distanceToLinkedCursedObject / outerRadiusOfLinkedCursedObject);
             render.color = new Color(1, 1, 1, closeness);
             transform.localScale = new Vector3(closeness, closeness, transform.localScale.z);
+        }
+
+        // Reset alpha and size for other states
+        else
+        {
+            render.color = new Color(1, 1, 1, 1);
+            transform.localScale = new Vector3(1, 1, transform.localScale.z);
         }
     }
 
@@ -87,6 +94,7 @@ public class PlayerSoul : MonoBehaviour {
                 // FLOAT -> RETURN (1)
                 Debug.Log("Zero Speed");
                 playerState = PlayerState.RETURN;
+                sfxPlayer.PlaySuckbackSfx();
             }
         }
 
@@ -122,10 +130,12 @@ public class PlayerSoul : MonoBehaviour {
         if (playerState == PlayerState.POSSESS)
         {
             playerState = PlayerState.DEPART;
+
+            // Play Depart SFX
+            sfxPlayer.PlayDepartSfx();
         }
 
-        // Play Depart SFX
-        sfxPlayer.PlayDepartSfx();
+        
     }
 
     // Return to linked cursed object
@@ -149,12 +159,15 @@ public class PlayerSoul : MonoBehaviour {
     public void ArriveAt(GameObject targetCursedObject) {
         StopMovement();
         Debug.Log("Called Arrive At");
+        if (playerState != PlayerState.RETURN)
+        {
+            sfxPlayer.PlayPossessSfx();
+        }
         playerState = PlayerState.ARRIVE;
         
         anim.SetBool("IsPossess", true);
         this.linkedCursedObject = targetCursedObject;
 
-        sfxPlayer.PlayPossessSfx();
     }
 
     // Transition to POSSESS state
@@ -180,7 +193,6 @@ public class PlayerSoul : MonoBehaviour {
     //
     public void ReturnToLinkedCursedObject()
     {
-
         Debug.Log("Called ReturnToLinkedObject");
         Physics2D.IgnoreLayerCollision(1, 0, true);
 
@@ -204,6 +216,7 @@ public class PlayerSoul : MonoBehaviour {
             Debug.Log("Hit Wall"); 
             StopMovement();
             playerState = PlayerState.RETURN;
+            sfxPlayer.PlaySuckbackSfx();
             // FLOAT -> RETURN (2)
         }
     }
