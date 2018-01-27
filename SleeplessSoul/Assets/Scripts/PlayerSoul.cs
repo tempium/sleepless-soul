@@ -97,6 +97,7 @@ public class PlayerSoul : MonoBehaviour {
     }
 
     public void Possessing(GameObject body) {
+		isPullCurse = true;
         isPossess = true;
         anim.SetBool("IsPossess", true);
         this.body = body;
