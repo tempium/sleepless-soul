@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class PlayerSoul : MonoBehaviour {
 
-    public float moveSpeed = 1;
-    public float timeThreshold = 1;
+	public float moveSpeed = 1;
+	public float timeThreshold = 1;
 
-    private int limitedSpeed = 3;
+	private int limitedSpeed = 3;
 
-    private Rigidbody2D rb;
-    public GameObject body;
-    private Animator anim;
-    private SpriteRenderer render;
+	private Rigidbody2D rb;
+	public GameObject body;
+	private Animator anim;
+	private SpriteRenderer render;
 
-    public bool isMove = false;
-    public bool isPossess = false;
-    public bool isOut = false;
-    public bool isInside = false;
-    private float timer;
+	public bool isMove = false;
+	public bool isPossess = false;
+	public bool isOut = false;
+	public bool isInside = false;
+	private float timer;
 
     public bool isPullBack;
     public bool isPullCurse;
