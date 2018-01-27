@@ -5,6 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Ik/Test.unity
     guid: 0a08fa159d657a94ea00a8ce51064d19
+  - enabled: 1
+    path: Assets/Scenes/Boss/Start.unity
+    guid: 4355f09b5faee4e4b9cb848790019256
+  - enabled: 1
+    path: Assets/Scenes/Boss/Stage.unity
+    guid: 3920372a0fedce543a7ee9fccc643919
+  - enabled: 1
+    path: Assets/Scenes/Boss/Dialog.unity
+    guid: c7cd4654eb0b63a46a80024eb1575ade

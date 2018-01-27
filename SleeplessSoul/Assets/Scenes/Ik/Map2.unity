@@ -127,7 +127,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4851409636221150, guid: d69c6aa6494e54d35b37bf863f28469f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1.93
+      value: 2.25
       objectReference: {fileID: 0}
     - target: {fileID: 4851409636221150, guid: d69c6aa6494e54d35b37bf863f28469f, type: 2}
       propertyPath: m_LocalPosition.y
@@ -211,6 +211,16 @@ Prefab:
     - target: {fileID: 1012210799686902, guid: c7a87279b60aa490fab68a03a20a7013, type: 2}
       propertyPath: m_Name
       value: Skull (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 250115064110171096, guid: cabf358dbdc8e814e9ea06a7bb8e44b6,
+        type: 2}
+      propertyPath: m_ForceMagnitude
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 250115064110171096, guid: cabf358dbdc8e814e9ea06a7bb8e44b6,
+        type: 2}
+      propertyPath: m_ForceMode
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c7a87279b60aa490fab68a03a20a7013, type: 2}
@@ -366,7 +376,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4851409636221150, guid: d69c6aa6494e54d35b37bf863f28469f, type: 2}
       propertyPath: m_LocalPosition.y
+<<<<<<< HEAD:SleeplessSoul/Assets/Scenes/Ik/Test.unity
+      value: 32.57
+=======
       value: 18.97
+>>>>>>> 9ffac954cbe0756d8b0edacefa8a72ce70545770:SleeplessSoul/Assets/Scenes/Ik/Map2.unity
       objectReference: {fileID: 0}
     - target: {fileID: 4851409636221150, guid: d69c6aa6494e54d35b37bf863f28469f, type: 2}
       propertyPath: m_LocalPosition.z
@@ -452,11 +466,19 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4129261481404996, guid: c7a87279b60aa490fab68a03a20a7013, type: 2}
       propertyPath: m_LocalPosition.x
+<<<<<<< HEAD:SleeplessSoul/Assets/Scenes/Ik/Test.unity
+      value: -1.14
+=======
       value: -2.68
+>>>>>>> 9ffac954cbe0756d8b0edacefa8a72ce70545770:SleeplessSoul/Assets/Scenes/Ik/Map2.unity
       objectReference: {fileID: 0}
     - target: {fileID: 4129261481404996, guid: c7a87279b60aa490fab68a03a20a7013, type: 2}
       propertyPath: m_LocalPosition.y
+<<<<<<< HEAD:SleeplessSoul/Assets/Scenes/Ik/Test.unity
+      value: 26.85
+=======
       value: 11.99
+>>>>>>> 9ffac954cbe0756d8b0edacefa8a72ce70545770:SleeplessSoul/Assets/Scenes/Ik/Map2.unity
       objectReference: {fileID: 0}
     - target: {fileID: 4129261481404996, guid: c7a87279b60aa490fab68a03a20a7013, type: 2}
       propertyPath: m_LocalPosition.z
@@ -548,6 +570,51 @@ MonoBehaviour:
 --- !u!4 &430040333
 Transform:
   m_ObjectHideFlags: 0
+<<<<<<< HEAD:SleeplessSoul/Assets/Scenes/Ik/Test.unity
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 2.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 40.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_RootOrder
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408645923604554, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_Name
+      value: CursedObject (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+  m_IsPrefabParent: 0
+=======
   m_PrefabParentObject: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478,
     type: 2}
   m_PrefabInternal: {fileID: 1751044300}
@@ -562,6 +629,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+>>>>>>> 9ffac954cbe0756d8b0edacefa8a72ce70545770:SleeplessSoul/Assets/Scenes/Ik/Map2.unity
 --- !u!1 &573698459
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,6 +784,127 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD:SleeplessSoul/Assets/Scenes/Ik/Test.unity
+--- !u!1001 &615420250
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 23.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114575504323515624, guid: c46c38a8332ff2c4d9eb0f8d6730c478,
+        type: 2}
+      propertyPath: scrollSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 58118241051221904, guid: c46c38a8332ff2c4d9eb0f8d6730c478,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408645923604554, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_Name
+      value: CursedObject8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4461513103910710, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4461513103910710, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &628114969
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -2.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 33.539997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031462249804570, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_RootOrder
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408645923604554, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+      propertyPath: m_Name
+      value: CursedObject (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
+  m_IsPrefabParent: 0
+=======
+--- !u!4 &624752450 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4322090031652122, guid: 64643725fabc24594bee905d176412ab,
+    type: 2}
+  m_PrefabInternal: {fileID: 1779370606}
+>>>>>>> 9ffac954cbe0756d8b0edacefa8a72ce70545770:SleeplessSoul/Assets/Scenes/Ik/Map2.unity
+>>>>>>> ada4776ad4e5e5cd2cae0eff23fb117d1cb5ed95
 --- !u!1 &629679822
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,11 +1286,19 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4322090031652122, guid: 64643725fabc24594bee905d176412ab, type: 2}
       propertyPath: m_LocalPosition.x
+<<<<<<< HEAD:SleeplessSoul/Assets/Scenes/Ik/Test.unity
+      value: -1.58
+=======
       value: -2.42
+>>>>>>> 9ffac954cbe0756d8b0edacefa8a72ce70545770:SleeplessSoul/Assets/Scenes/Ik/Map2.unity
       objectReference: {fileID: 0}
     - target: {fileID: 4322090031652122, guid: 64643725fabc24594bee905d176412ab, type: 2}
       propertyPath: m_LocalPosition.y
+<<<<<<< HEAD:SleeplessSoul/Assets/Scenes/Ik/Test.unity
+      value: 21.39
+=======
       value: 34.87
+>>>>>>> 9ffac954cbe0756d8b0edacefa8a72ce70545770:SleeplessSoul/Assets/Scenes/Ik/Map2.unity
       objectReference: {fileID: 0}
     - target: {fileID: 4322090031652122, guid: 64643725fabc24594bee905d176412ab, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1130,6 +1327,16 @@ Prefab:
     - target: {fileID: 1120889639403654, guid: 64643725fabc24594bee905d176412ab, type: 2}
       propertyPath: m_Name
       value: CursedDoll (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 250115064110171096, guid: cabf358dbdc8e814e9ea06a7bb8e44b6,
+        type: 2}
+      propertyPath: m_ForceMagnitude
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 250115064110171096, guid: cabf358dbdc8e814e9ea06a7bb8e44b6,
+        type: 2}
+      propertyPath: m_ForceMode
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 64643725fabc24594bee905d176412ab, type: 2}
@@ -1515,7 +1722,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4771439363254814, guid: 3405154b10db942e499c24a22e2ec696, type: 2}
       propertyPath: m_LocalPosition.y
+<<<<<<< HEAD:SleeplessSoul/Assets/Scenes/Ik/Test.unity
+      value: 49.899998
+=======
       value: 3.8
+>>>>>>> 9ffac954cbe0756d8b0edacefa8a72ce70545770:SleeplessSoul/Assets/Scenes/Ik/Map2.unity
       objectReference: {fileID: 0}
     - target: {fileID: 4771439363254814, guid: 3405154b10db942e499c24a22e2ec696, type: 2}
       propertyPath: m_LocalPosition.z
