@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114248167446970384}
   m_Layer: 0
   m_Name: HolyObject
-  m_TagString: Untagged
+  m_TagString: Holy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,7 +129,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b4a6d61c3747b2b4399168e03ac11b79, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

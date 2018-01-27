@@ -43,16 +43,20 @@ public class PlayerSoul : MonoBehaviour {
             float closeness = Mathf.Clamp01((transform.position - body.transform.position).magnitude / radius);
             render.color = new Color(1, 1, 1, closeness);
             transform.localScale = new Vector3(closeness, closeness, transform.localScale.z);
+            float angle = Vector2.SignedAngle(new Vector2(0, 1), (transform.position - body.transform.position));
+            transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(0, -angle, 1-closeness));
         }
 
         if (isOut) {
             if (body == null) {
+                anim.SetBool("IsOut", false);
                 isOut = false;
                 return;
             }
             float radius = body.GetComponentInChildren<OuterDetect>().GetComponent<CircleCollider2D>().radius;
             float closeness = (transform.position - body.transform.position).magnitude / radius;
             if (closeness > 1) {
+                anim.SetBool("IsOut", false);
                 isOut = false;
                 return;
             }
@@ -94,9 +98,10 @@ public class PlayerSoul : MonoBehaviour {
         }
         //direction = new Vector2(0, 1);
 
+        anim.SetBool("IsOut", true);
+        isOut = true;
         anim.SetBool("IsMove", true);
         isMove = true;
-        isOut = true;
         isInside = false;
         timer = Time.time;
         rb.velocity = direction.normalized * moveSpeed;
@@ -112,6 +117,7 @@ public class PlayerSoul : MonoBehaviour {
         anim.SetBool("IsMove", false);
         isMove = false;
         if (isOut) {
+            anim.SetBool("IsOut", false);
             isOut = false;
             body.GetComponentInChildren<OuterDetect>().StartPull();
             Possessing(body);
@@ -127,9 +133,11 @@ public class PlayerSoul : MonoBehaviour {
     public void Possessing(GameObject body) {
         isMove = false;
         isPossess = true;
+        anim.SetBool("IsOut", false);
         isOut = false;
         
         anim.SetBool("IsPossess", true);
+        anim.speed = 2f / (transform.position - body.transform.position).magnitude;
         this.body = body;
     }
 
@@ -138,6 +146,7 @@ public class PlayerSoul : MonoBehaviour {
         isMove = false;
         isInside = true;
         anim.SetBool("IsPossess", false);
+        transform.rotation = Quaternion.identity;
         Stop();
 
         //transform.position = body.transform.position;
