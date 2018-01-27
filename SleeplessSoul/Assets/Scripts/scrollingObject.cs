@@ -6,7 +6,7 @@ public class ScrollingObject : MonoBehaviour {
 
 	private Rigidbody2D RIGIDBODY;
 	private float speed = -2f;
-	[SerializeField]private bool stop_scrolling;
+	private bool stop_scrolling = false;
 
 	// Use this for initialization
 	void Start () {
