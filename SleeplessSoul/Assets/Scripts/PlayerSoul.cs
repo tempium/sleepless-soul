@@ -56,8 +56,7 @@ public class PlayerSoul : MonoBehaviour {
         distanceToLinkedCursedObject = (transform.position - linkedCursedObject.transform.position).magnitude;
         outerRadiusOfLinkedCursedObject = linkedCursedObject.GetComponentInChildren<OuterDetect>().GetComponent<CircleCollider2D>().radius;
 
-
-        // Handle state change DEPART -> FLOAT (In Addition To linkedCursedObject handle)
+        // Handle state change DEPART -> FLOAT
         if (distanceToLinkedCursedObject > outerRadiusOfLinkedCursedObject && playerState == PlayerState.DEPART)
         {
             playerState = PlayerState.FLOAT;
@@ -79,9 +78,12 @@ public class PlayerSoul : MonoBehaviour {
         }
     }
 
-    void FixedUpdate () {
-        if (playerState == PlayerState.FLOAT) {
-            if (rb.velocity.sqrMagnitude == 0 || Time.time - timer > timeThreshold) {
+    void FixedUpdate()
+    {
+        if (playerState == PlayerState.FLOAT)
+        {
+            if (rb.velocity.sqrMagnitude == 0 || Time.time - timer > timeThreshold)
+            {
                 // FLOAT -> RETURN (1)
                 Debug.Log("Zero Speed");
                 playerState = PlayerState.RETURN;
@@ -92,11 +94,6 @@ public class PlayerSoul : MonoBehaviour {
         {
             ReturnToLinkedCursedObject();
         }
-    }
-
-    public Vector2 getVelocity()
-    {
-        return rb.velocity;
     }
 
     // Move to specified direction (bi-directional)
@@ -237,5 +234,10 @@ public class PlayerSoul : MonoBehaviour {
     }
     public bool IsOut() {
         return playerState == PlayerState.ARRIVE;
+    }
+
+    public Vector2 getVelocity()
+    {
+        return rb.velocity;
     }
 }
