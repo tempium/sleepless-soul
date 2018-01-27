@@ -8,6 +8,7 @@ public class SpawnCursed : MonoBehaviour {
 	private const float max_x = 2.4f;
 	private const float max_y = 4f;
 	private const float offset_x = 0.3f;
+	public int split_part = 2;
 //	float tempx = -max_x;
 	// Use this for initialization
 	void Start () {
@@ -19,11 +20,11 @@ public class SpawnCursed : MonoBehaviour {
 	}
 	void RandomRespawn(){
 		float tempx = -max_x;
-		float temp1 = (2*max_x/3);
+		float temp1 = (2*max_x/split_part);
 		float temp2 = tempx + temp1;
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < split_part; i++) {
 			float tempX = Random.Range (tempx+offset_x, temp2-offset_x);
-			float tempY = Random.Range (1.5f, max_y);
+			float tempY = Random.Range (1.3f, max_y);
 			print ("X: " + tempX);
 			print ("Y: " + tempY);
 			Instantiate (curseObj, new Vector3 (tempX, 
