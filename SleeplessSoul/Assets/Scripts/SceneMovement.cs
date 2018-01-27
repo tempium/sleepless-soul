@@ -19,7 +19,7 @@ public class SceneMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (player.transform.position.y > 2) {
-            boost = true;
+            //boost = true;
         }
 
         transform.position = new Vector3(transform.position.x, transform.position.y - (player.transform.position.y) * scrollSpeed * Time.deltaTime, transform.position.z);
