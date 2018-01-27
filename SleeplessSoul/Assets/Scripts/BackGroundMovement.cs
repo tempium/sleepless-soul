@@ -13,8 +13,8 @@ public class BackGroundMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (transform.position.y <= -backgroundLength) {
-            transform.position = new Vector3(0, 0, transform.position.z);
+        if (transform.position.y <= -2*backgroundLength) {
+            transform.position = new Vector3(0, 0, 2*transform.position.z);
         }
 	}
 }

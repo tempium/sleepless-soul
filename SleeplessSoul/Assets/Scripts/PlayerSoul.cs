@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class PlayerSoul : MonoBehaviour {
 
-	public float moveSpeed = 1;
-	public float timeThreshold = 1;
+    public float moveSpeed = 1;
+    public float timeThreshold = 1;
 
-	private int limitedSpeed = 3;
+    private int limitedSpeed = 3;
 
-	private Rigidbody2D rb;
-	public GameObject body;
-	private Animator anim;
-	private SpriteRenderer render;
+    private Rigidbody2D rb;
+    public GameObject body;
+    private Animator anim;
+    private SpriteRenderer render;
 
-	public bool isMove = false;
-	public bool isPossess = false;
-	public bool isOut = false;
-	public bool isInside = false;
-	private float timer;
+    public bool isMove = false;
+    public bool isPossess = false;
+    public bool isOut = false;
+    public bool isInside = false;
+    private float timer;
+
+    public CursedObject cursedObject;
 
     public bool isPullBack;
     public bool isPullCurse;
@@ -42,7 +44,7 @@ public class PlayerSoul : MonoBehaviour {
             float radius = body.GetComponentInChildren<OuterDetect>().GetComponent<CircleCollider2D>().radius;
             float closeness = Mathf.Clamp01((transform.position - body.transform.position).magnitude / radius);
             render.color = new Color(1, 1, 1, closeness);
-            transform.localScale = new Vector3(closeness, closeness, transform.localScale.z);
+            //transform.localScale = new Vector3(closeness, closeness, transform.localScale.z);
         }
 
         if (isOut) {
@@ -58,7 +60,7 @@ public class PlayerSoul : MonoBehaviour {
             }
 
             render.color = new Color(1, 1, 1, closeness);
-            transform.localScale = new Vector3(closeness, closeness, transform.localScale.z);
+            //transform.localScale = new Vector3(closeness, closeness, transform.localScale.z);
         }
     }
 
@@ -93,6 +95,7 @@ public class PlayerSoul : MonoBehaviour {
             return;
         }
         //direction = new Vector2(0, 1);
+        print("in");
 
         anim.SetBool("IsMove", true);
         isMove = true;
@@ -111,11 +114,6 @@ public class PlayerSoul : MonoBehaviour {
     public void Stop() { 
         anim.SetBool("IsMove", false);
         isMove = false;
-        if (isOut) {
-            isOut = false;
-            body.GetComponentInChildren<OuterDetect>().StartPull();
-            Possessing(body);
-        }
         rb.velocity = new Vector2(0, 0);
 
         if (!isInside && !isPossess) {
@@ -127,7 +125,6 @@ public class PlayerSoul : MonoBehaviour {
     public void Possessing(GameObject body) {
         isMove = false;
         isPossess = true;
-        isOut = false;
         
         anim.SetBool("IsPossess", true);
         this.body = body;

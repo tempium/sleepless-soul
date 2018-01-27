@@ -18,6 +18,11 @@ public class SceneMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (player == null)
+        {
+
+            return;
+        }
         if (player.transform.position.y > 2) {
             boost = true;
         }
