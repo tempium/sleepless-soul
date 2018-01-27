@@ -13,24 +13,38 @@ public class DirectionGauge : MonoBehaviour
     private static bool isMove;
 
     public static Quaternion rotation;
+    public static Vector2 pos;
 
-    
+   
     // Use this for initialization
     void Start()
     {
         isCW = false;
-        speed = 5;
         isMove = false;
+
+        speed = 5;
+
+        Physics2D.IgnoreLayerCollision(5, 0, true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        pos = transform.position;
+        SoulCommand();
+        Rotate();
+
+    }
+
+    void SoulCommand()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && !isMove)
         {
+            print("in");
             isSpace = true;
+            soul.isAtGauge = false;
         }
-        else if (Input.GetKeyDown(KeyCode.Return))
+        else if (Input.GetKeyDown(KeyCode.Return) || soul.StopAndNoCurse())
         {
             isSpace = false;
             isMove = false;
@@ -39,17 +53,21 @@ public class DirectionGauge : MonoBehaviour
 
         if (isSpace && !isMove)
         {
-            // print(transform.eulerAngles.z);
-            // print(Mathf.Sin(transform.eulerAngles.z));
             isMove = true;
-            soul.Move(new Vector2(Mathf.Cos(transform.eulerAngles.z * Mathf.PI / 180),Mathf.Sin(transform.eulerAngles.z * Mathf.PI / 180)));
+            soul.Move(new Vector2(Mathf.Cos(transform.eulerAngles.z * Mathf.PI / 180), Mathf.Sin(transform.eulerAngles.z * Mathf.PI / 180)));
             return;
         }
-        // print(transform.eulerAngles.z* Mathf.PI / 180);
 
-        /*
-         Check when to turn back
-         */
+        if (soul.isPullCurse && Mathf.Sqrt(Mathf.Abs(Mathf.Pow(soul.getVelocity().x, 2) - Mathf.Pow(soul.getVelocity().y, 2))) < 0.1)
+        {
+            transform.position = soul.transform.position;
+            soul.isPullCurse = false;
+            soul.isPullBack = false;
+        }
+    }
+
+    void Rotate()
+    {
         if (transform.eulerAngles.z >= 180 && !isCW)
         {
             isCW = true;
@@ -61,24 +79,18 @@ public class DirectionGauge : MonoBehaviour
 
         if (isCW)
         {
-           transform.Rotate(Vector3.forward, -speed, Space.World);
+            transform.Rotate(Vector3.forward, -speed, Space.World);
         }
         else
         {
-           transform.Rotate(Vector3.forward, speed, Space.World);
+            transform.Rotate(Vector3.forward, speed, Space.World);
         }
-    }
-
-    Vector2 getPos()
-    {
-        return transform.position;
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
 
 
-        Debug.Log(other.gameObject.name);
         // Collision only Wall object
         if (other.gameObject.tag != "Wall")
         {
