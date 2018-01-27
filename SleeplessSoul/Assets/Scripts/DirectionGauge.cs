@@ -12,13 +12,14 @@ public class DirectionGauge : MonoBehaviour
     private static bool isSpace;
 
     public static Quaternion rotation;
-    public static Vector2 pos;
+    public static GameObject reference;
 
    
     // Use this for initialization
     void Start()
     {
         isCW = false;
+        reference = GameObject.FindGameObjectWithTag("Respawn");
 
         speed = 5;
 
@@ -28,7 +29,7 @@ public class DirectionGauge : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        pos = transform.position;
+        transform.position = reference.transform.position;
         SoulCommand();
         Rotate();
 
@@ -43,10 +44,10 @@ public class DirectionGauge : MonoBehaviour
             isSpace = true;
             soul.isAtGauge = false;
         }
-        else if (Input.GetKeyDown(KeyCode.Return) || soul.StopAndNoCurse())
+        else if (Input.GetKeyDown(KeyCode.Return))
         {
             isSpace = false;
-            soul.returnToGauge(transform.position);
+            soul.ReturnToGauge(transform.position);
         }
 
         if (isSpace)

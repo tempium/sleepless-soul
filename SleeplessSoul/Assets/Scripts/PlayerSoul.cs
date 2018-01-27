@@ -10,12 +10,14 @@ public class PlayerSoul : MonoBehaviour {
     private int limitedSpeed = 3;
 
     private Rigidbody2D rb;
-    private GameObject body;
+    public GameObject body;
     private Animator anim;
     private SpriteRenderer render;
 
-    private bool isMove = false;
-    private bool isPossess = false;
+    public bool isMove = false;
+    public bool isPossess = false;
+    public bool isOut = false;
+    public bool isInside = false;
     private float timer;
 
     public CursedObject cursedObject;
@@ -23,6 +25,7 @@ public class PlayerSoul : MonoBehaviour {
     public bool isPullBack;
     public bool isPullCurse;
     public bool isAtGauge;
+    //public bool test;
 
 	// Use this for initialization
 	void Start () {
@@ -43,6 +46,22 @@ public class PlayerSoul : MonoBehaviour {
             render.color = new Color(1, 1, 1, closeness);
             transform.localScale = new Vector3(closeness, closeness, transform.localScale.z);
         }
+
+        if (isOut) {
+            if (body == null) {
+                isOut = false;
+                return;
+            }
+            float radius = body.GetComponentInChildren<OuterDetect>().GetComponent<CircleCollider2D>().radius;
+            float closeness = (transform.position - body.transform.position).magnitude / radius;
+            if (closeness > 1) {
+                isOut = false;
+                return;
+            }
+
+            render.color = new Color(1, 1, 1, closeness);
+            transform.localScale = new Vector3(closeness, closeness, transform.localScale.z);
+        }
     }
 
     void FixedUpdate () {
@@ -55,18 +74,15 @@ public class PlayerSoul : MonoBehaviour {
 
     void PulltoGauge()
     {
-        if (!isPullCurse && isPullBack && Mathf.Abs(DirectionGauge.pos.x - transform.position.x) < 0.5 && Mathf.Abs(DirectionGauge.pos.y - transform.position.y) < 0.5)
-        {
-            Physics2D.IgnoreLayerCollision(1, 0, false);
-            isPullBack = false;
-            isAtGauge = true;
+        //if (!isPullCurse && isPullBack && Mathf.Abs(DirectionGauge.pos.x - transform.position.x) < 0.5 && Mathf.Abs(DirectionGauge.pos.y - transform.position.y) < 0.5) { 
+        //    Physics2D.IgnoreLayerCollision(1, 0, false);
+        //    isPullBack = false;
+        //    isAtGauge = true;
 
-        }
-        if (isAtGauge)
-        {
-            Move(new Vector2(0, 0));
-            transform.position = new Vector2(DirectionGauge.pos.x, DirectionGauge.pos.y);
-        }
+        //}
+        //if (isAtGauge) { 
+        //    transform.position = new Vector2(DirectionGauge.pos.x, DirectionGauge.pos.y);
+        //}
     }
 
     public Vector2 getVelocity()
@@ -75,17 +91,21 @@ public class PlayerSoul : MonoBehaviour {
     }
 
     public void Move(Vector2 direction) {
-        if (isMove) {
+        if (isMove || isPossess) {
             return;
         }
         //direction = new Vector2(0, 1);
 
         anim.SetBool("IsMove", true);
         isMove = true;
+        isOut = true;
+        isInside = false;
         timer = Time.time;
-        rb.velocity = direction * moveSpeed;
+        rb.velocity = direction.normalized * moveSpeed;
 
-        body.GetComponent<CursedObject>().Release();
+        if (body != null) {
+            body.GetComponent<CursedObject>().Release();
+        }
         GetComponent<Collider2D>().enabled = true;
         GetComponentInChildren<SpriteRenderer>().enabled = true;
     }
@@ -94,18 +114,30 @@ public class PlayerSoul : MonoBehaviour {
         anim.SetBool("IsMove", false);
         isMove = false;
         rb.velocity = new Vector2(0, 0);
+
+        if (!isInside && !isPossess) {
+            ReturnToGauge(DirectionGauge.reference.transform.position);
+            //test = true;
+        }
     }
 
     public void Possessing(GameObject body) {
+        isMove = false;
         isPossess = true;
+        
         anim.SetBool("IsPossess", true);
         this.body = body;
     }
 
     public void Possess() {
         isPossess = false;
+        isMove = false;
+        isInside = true;
         anim.SetBool("IsPossess", false);
         Stop();
+
+        //transform.position = body.transform.position;
+        DirectionGauge.reference = body;
 
         GetComponent<Collider2D>().enabled = false;
         GetComponentInChildren<SpriteRenderer>().enabled = false;
@@ -113,21 +145,19 @@ public class PlayerSoul : MonoBehaviour {
 
     public bool StopAndNoCurse()
     {
-        if(Mathf.Sqrt(Mathf.Abs(Mathf.Pow(rb.velocity.x,2) - Mathf.Pow(rb.velocity.y, 2))) < 0.1 && !isPullCurse && !isAtGauge)
-            //Detect pulling to the Gauge
-        return true;
-        return false;
+        return !isInside && body == null;
     }
 
-    public void returnToGauge(Vector2 pos)
+    public void ReturnToGauge(Vector2 pos)
     {
         Physics2D.IgnoreLayerCollision(1, 0, true);
 
         float usX = pos.x - transform.position.x;
         float usY = pos.y - transform.position.y;
 
-        Move(new Vector2(usX,usY));
+        Move(new Vector2(usX, usY));
         isPullBack = true;
+        //test = false;
     }
     
     private void OnCollisionEnter2D(Collision2D other) {
@@ -148,4 +178,17 @@ public class PlayerSoul : MonoBehaviour {
     //        Stop();
     //    }
     //}
+
+    public bool IsMove() {
+        return isMove;
+    }
+    public bool IsPossess() {
+        return isPossess;
+    }
+    public bool IsInside() {
+        return isInside;
+    }
+    public bool IsOut() {
+        return isOut;
+    }
 }

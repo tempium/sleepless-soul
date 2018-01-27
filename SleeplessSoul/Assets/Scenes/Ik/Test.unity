@@ -301,7 +301,7 @@ Prefab:
     - target: {fileID: 58118241051221904, guid: c46c38a8332ff2c4d9eb0f8d6730c478,
         type: 2}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c46c38a8332ff2c4d9eb0f8d6730c478, type: 2}
@@ -466,11 +466,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4351594837777586, guid: ea65d0a9a999c91489192e7a624b0090, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.08
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4351594837777586, guid: ea65d0a9a999c91489192e7a624b0090, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.98
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4351594837777586, guid: ea65d0a9a999c91489192e7a624b0090, type: 2}
       propertyPath: m_LocalPosition.z
@@ -762,6 +762,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 1
+--- !u!1 &1641393983 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1408645923604554, guid: c46c38a8332ff2c4d9eb0f8d6730c478,
+    type: 2}
+  m_PrefabInternal: {fileID: 938924772}
+--- !u!114 &1641393986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1641393983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94784c74480a7dd4c9112ef098246ba7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1848624803
 Prefab:
   m_ObjectHideFlags: 0
@@ -943,7 +959,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4317691547758332, guid: a916e4a9d7b95c7499694aa585d9de41, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3.5929985
+      value: -5.57
       objectReference: {fileID: 0}
     - target: {fileID: 4317691547758332, guid: a916e4a9d7b95c7499694aa585d9de41, type: 2}
       propertyPath: m_LocalPosition.z
@@ -982,6 +998,11 @@ Prefab:
         type: 2}
       propertyPath: speed
       value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114254097547047072, guid: a916e4a9d7b95c7499694aa585d9de41,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a916e4a9d7b95c7499694aa585d9de41, type: 2}
