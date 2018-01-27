@@ -10,7 +10,6 @@ public class DirectionGauge : MonoBehaviour
     private static bool isCW;
     private static int speed;
     private static bool isSpace;
-    private static bool isMove;
 
     public static Quaternion rotation;
     public static Vector2 pos;
@@ -20,7 +19,6 @@ public class DirectionGauge : MonoBehaviour
     void Start()
     {
         isCW = false;
-        isMove = false;
 
         speed = 5;
 
@@ -38,7 +36,8 @@ public class DirectionGauge : MonoBehaviour
 
     void SoulCommand()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isMove)
+        isSpace = false;
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             print("in");
             isSpace = true;
@@ -47,13 +46,11 @@ public class DirectionGauge : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Return) || soul.StopAndNoCurse())
         {
             isSpace = false;
-            isMove = false;
             soul.returnToGauge(transform.position);
         }
 
-        if (isSpace && !isMove)
+        if (isSpace)
         {
-            isMove = true;
             soul.Move(new Vector2(Mathf.Cos(transform.eulerAngles.z * Mathf.PI / 180), Mathf.Sin(transform.eulerAngles.z * Mathf.PI / 180)));
             return;
         }

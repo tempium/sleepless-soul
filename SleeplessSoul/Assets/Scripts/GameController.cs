@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour {
 	public static GameController instance;
 	public GameObject gameOverText;
 	public bool gameOver = false;
-	public float scrollSpeed = -1.5f;
+	public float scrollSpeed = 1;
 
 	// Use this for initialization
 	void Start () {

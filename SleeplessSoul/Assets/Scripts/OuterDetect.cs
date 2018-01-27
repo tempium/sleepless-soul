@@ -4,17 +4,38 @@ using UnityEngine;
 
 public class OuterDetect : MonoBehaviour
 {
-    public PlayerSoul soul;
+    private bool pull = false;
+    private Animator anim;
+
+    private void Start() {
+        anim = transform.parent.GetComponentInChildren<Animator>();
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Vector2 newVector = (transform.position - other.gameObject.transform.position)*2;
-        other.gameObject.GetComponent<Rigidbody2D>().velocity = newVector;
-        if ((PlayerSoul)other.gameObject.GetComponent<PlayerSoul>() == soul && Mathf.Sqrt((Mathf.Pow(transform.position.x - DirectionGauge.pos.x, 2)) + (Mathf.Pow(transform.position.y - DirectionGauge.pos.y, 2))) > 0.1)
-        {
-            //Detect will be pulled to the Curse
-            soul.isPullCurse = true;
+        if (other.CompareTag("Player")) {
+            anim.SetBool("IsPossess", true);
+            pull = true;
+
+            other.GetComponent<PlayerSoul>().Possessing(transform.parent.gameObject);
         }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (pull) {
+            Vector2 newVector = transform.position - collision.gameObject.transform.position;
+            collision.gameObject.GetComponent<Rigidbody2D>().velocity = newVector.normalized * 2;
+        }
+    }
+
+
+    private void OnTriggerExit2D(Collider2D collision) {
+        
+    }
+
+    public void stopPull() {
+        pull = false;
     }
 
 }

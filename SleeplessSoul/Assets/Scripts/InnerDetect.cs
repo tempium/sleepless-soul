@@ -9,7 +9,8 @@ public class InnerDetect : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     { 
         other.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        //Detect pull to the Curse
-
+        if (other.CompareTag("Player")) {
+            other.GetComponent<PlayerSoul>().Possess();
+        }
     }
 }

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 58966310868775464}
   - component: {fileID: 58649875240576828}
   - component: {fileID: 250115064110171096}
+  - component: {fileID: 114248167446970384}
   m_Layer: 0
   m_Name: HolyObject
   m_TagString: Untagged
@@ -52,7 +53,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1572188593415568}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.81, y: -0.2, z: 0}
+  m_LocalPosition: {x: -2.64, y: 2.83, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4710398601398658}
@@ -102,6 +103,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &114248167446970384
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1572188593415568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4da91476d6820f849a7d09d0a296b577, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateSpeed: 1
 --- !u!212 &212016114927232406
 SpriteRenderer:
   m_ObjectHideFlags: 1

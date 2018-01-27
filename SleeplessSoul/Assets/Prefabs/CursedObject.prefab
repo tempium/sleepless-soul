@@ -19,9 +19,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4031462249804570}
+  - component: {fileID: 114575504323515624}
   m_Layer: 0
   m_Name: CursedObject
-  m_TagString: Untagged
+  m_TagString: Cursed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35,6 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4461513103910710}
   - component: {fileID: 212937428818147344}
+  - component: {fileID: 95835065654551086}
   m_Layer: 0
   m_Name: DollSprite
   m_TagString: Untagged
@@ -83,7 +85,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1408645923604554}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.65, y: 0.6, z: 0}
+  m_LocalPosition: {x: 2.52, y: 3.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4461513103910710}
@@ -161,6 +163,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.7
+--- !u!95 &95835065654551086
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1620428792918772}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 80b0f220fd0155749acc2cb5363dd7cf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114521996098135746
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -172,6 +191,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad9338180be526458c376960cbfaeca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114575504323515624
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1408645923604554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4da91476d6820f849a7d09d0a296b577, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollSpeed: 0
 --- !u!114 &114859721545467848
 MonoBehaviour:
   m_ObjectHideFlags: 1
