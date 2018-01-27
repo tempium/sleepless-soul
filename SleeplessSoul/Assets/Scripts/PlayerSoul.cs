@@ -19,6 +19,8 @@ public class PlayerSoul : MonoBehaviour {
     public bool isOut = false;
     public bool isInside = false;
     private float timer;
+    private float height;
+    public int highscore;
 
     public CursedObject cursedObject;
 
@@ -29,6 +31,8 @@ public class PlayerSoul : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        height = 0;
+        highscore = 0;
         isPullBack = false;
         isPullCurse = false;
         isAtGauge = true;
@@ -44,7 +48,6 @@ public class PlayerSoul : MonoBehaviour {
             float radius = body.GetComponentInChildren<OuterDetect>().GetComponent<CircleCollider2D>().radius;
             float closeness = Mathf.Clamp01((transform.position - body.transform.position).magnitude / radius);
             render.color = new Color(1, 1, 1, closeness);
-            //transform.localScale = new Vector3(closeness, closeness, transform.localScale.z);
         }
 
         if (isOut) {
@@ -60,7 +63,6 @@ public class PlayerSoul : MonoBehaviour {
             }
 
             render.color = new Color(1, 1, 1, closeness);
-            //transform.localScale = new Vector3(closeness, closeness, transform.localScale.z);
         }
     }
 
@@ -107,8 +109,11 @@ public class PlayerSoul : MonoBehaviour {
         if (body != null) {
             body.GetComponent<CursedObject>().Release();
         }
-        GetComponent<Collider2D>().enabled = true;
+        //GetComponent<Collider2D>().enabled = true;
+        Physics2D.IgnoreLayerCollision(8, 0, false);
         GetComponentInChildren<SpriteRenderer>().enabled = true;
+
+
     }
 
     public void Stop() { 
@@ -140,7 +145,7 @@ public class PlayerSoul : MonoBehaviour {
         //transform.position = body.transform.position;
         DirectionGauge.reference = body;
 
-        GetComponent<Collider2D>().enabled = false;
+        Physics2D.IgnoreLayerCollision(8, 0, true);
         GetComponentInChildren<SpriteRenderer>().enabled = false;
     }
 

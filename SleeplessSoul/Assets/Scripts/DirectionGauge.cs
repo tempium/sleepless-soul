@@ -23,7 +23,10 @@ public class DirectionGauge : MonoBehaviour
 
         speed = 5;
 
-        Physics2D.IgnoreLayerCollision(5, 0, true);
+        Physics2D.IgnoreLayerCollision(8, 5, true);
+        Physics2D.IgnoreLayerCollision(0, 5, true);
+        Physics2D.IgnoreLayerCollision(9, 5, true);
+
     }
 
     // Update is called once per frame

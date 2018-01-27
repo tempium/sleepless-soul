@@ -19,6 +19,11 @@ public class Firewall : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if(soul != null)
+        if(soul.transform.position.y - transform.position.y <= 0.2)
+        {
+                Destroy(soul);
+        }
         if (Input.GetKeyDown(KeyCode.Space) && soul == null)
         {
             SceneManager.LoadScene(0);
