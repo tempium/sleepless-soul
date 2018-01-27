@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 114972253241662206}
   - component: {fileID: 58652651937237768}
   - component: {fileID: 50829452102599114}
+  - component: {fileID: 114698985241976928}
   m_Layer: 0
   m_Name: PlayerSoul
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,9 +53,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1470826825369114}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 4771019341762272}
   m_RootOrder: 0
@@ -86,13 +87,13 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 1
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &58652651937237768
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -102,12 +103,12 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.051108807, y: 0.099862665}
+  m_Offset: {x: -0.10852471, y: 0.19958502}
   serializedVersion: 2
-  m_Radius: 0.14066598
+  m_Radius: 0.2736291
 --- !u!95 &95156848164852774
 Animator:
   serializedVersion: 3
@@ -115,7 +116,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1470826825369114}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 88bd4ddc05cd97d4a8412923a7685ec9, type: 2}
   m_CullingMode: 0
@@ -125,6 +126,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114698985241976928
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1215984503561892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4da91476d6820f849a7d09d0a296b577, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollSpeed: 1
 --- !u!114 &114972253241662206
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -136,7 +149,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c75413fa48c3e64fa70166440cbac43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 10
+  timeThreshold: 1.5
+  body: {fileID: 0}
+  isMove: 0
+  isPossess: 0
+  isOut: 0
+  isInside: 0
+  cursedObject: {fileID: 0}
+  isPullBack: 0
+  isPullCurse: 0
+  isAtGauge: 0
 --- !u!212 &212251236661272770
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -171,7 +194,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 602497a30106ae54499dd13daa48816e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5dd15c73393074a41b450352fc1c3063, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

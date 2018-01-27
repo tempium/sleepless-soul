@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class OuterDetect : MonoBehaviour
 {
+
+    private PlayerSoul playerSoul;
+
     private bool pull = false;
     private Animator anim;
 
     private void Start() {
         anim = transform.parent.GetComponentInChildren<Animator>();
+        playerSoul = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSoul>();
     }
 
+    
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) {
+        if (other.CompareTag("Player") && !playerSoul.IsOut() && !playerSoul.isPossess) {
             anim.SetBool("IsPossess", true);
             pull = true;
 
@@ -31,10 +36,12 @@ public class OuterDetect : MonoBehaviour
 
 
     private void OnTriggerExit2D(Collider2D collision) {
-        
+        if (playerSoul.IsOut()) {
+            
+        }
     }
 
-    public void stopPull() {
+    public void StopPull() {
         pull = false;
     }
 
