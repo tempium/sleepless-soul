@@ -7,11 +7,10 @@ using UnityEditor;
 public class FirewallEditor : Editor {
 
 	private Firewall firewall;
-	SerializedProperty offsetProp;
+	float offsetProp;
 
 	void OnEnable() {
 		// Setup properties
-		offsetProp = serializedObject.FindProperty("");
 	}
 
 	public override void OnInspectorGUI() 
@@ -21,14 +20,17 @@ public class FirewallEditor : Editor {
 
 		firewall = target as Firewall;
 
-		EditorGUILayout.Slider(offsetProp, 0f, 3.6f, new GUIContent("Offset from Top"));
+        EditorGUI.BeginChangeCheck();
+		offsetProp = EditorGUILayout.Slider("Offset from Top", offsetProp, 0f, 3.6f);
+        if (EditorGUI.EndChangeCheck()) {
+            Undo.RecordObject(firewall, "Change Offset");
+		    BoxCollider2D bc = firewall.GetComponent<BoxCollider2D>();
+		    bc.size = new Vector2(7.2f, 3.6f - offsetProp);
+		    bc.offset = new Vector2(0.0f, 3.6f - offsetProp / 2);
+		    serializedObject.ApplyModifiedProperties ();
+            EditorUtility.SetDirty(firewall);
+        }
 
-		float collisionOffsetFromTop = offsetProp.floatValue;
-
-		BoxCollider2D bc = firewall.GetComponent<BoxCollider2D>();
-		bc.size = new Vector2(7.2f, 3.6f - collisionOffsetFromTop);
-		bc.offset = new Vector2(0.0f, -collisionOffsetFromTop / 2);
-		serializedObject.ApplyModifiedProperties ();
 
 	}
 }

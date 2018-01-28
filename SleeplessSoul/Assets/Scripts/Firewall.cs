@@ -23,7 +23,15 @@ public class Firewall : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
 		Debug.Log (other.gameObject.name);
-        Destroy(other.gameObject);
+        if (other.CompareTag("Player")) {
+            Destroy(other.gameObject);
+        }
+        else if (other.CompareTag("Cursed")) { 
+            Destroy(other.transform.parent.gameObject);
+        }
+        else if (other.CompareTag("Holy")) { 
+            Destroy(other.gameObject);
+        }
     }
     
 }
