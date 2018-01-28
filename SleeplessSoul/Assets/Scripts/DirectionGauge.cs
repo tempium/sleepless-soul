@@ -23,12 +23,13 @@ public class DirectionGauge : MonoBehaviour
 
 		speed = 5;
 
-		Physics2D.IgnoreLayerCollision(5, 0, true);
+		Physics2D.IgnoreLayerCollision(8, 9, true);
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
+        if (soul == null) return;
         if (reference != null) {
 		    transform.position = reference.transform.position;
         }

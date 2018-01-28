@@ -137,7 +137,9 @@ public class PlayerSoul : MonoBehaviour {
         }
 
         // Make player visible (after in POSSESS state)
-        GetComponent<Collider2D>().enabled = true;
+        Physics2D.IgnoreLayerCollision(8, 0, false);
+
+        //GetComponent<Collider2D>().enabled = true;
         GetComponentInChildren<SpriteRenderer>().enabled = true;
 
         // Change PlayerState to DEPART
@@ -150,6 +152,38 @@ public class PlayerSoul : MonoBehaviour {
         }
 
         
+    }
+
+    public void MoveBack(Vector2 direction)
+    {
+
+        anim.SetBool("IsOut", true);
+        // isOut = true;
+        anim.SetBool("IsMove", true);
+        timer = Time.time;
+        rb.velocity = (direction.normalized * moveSpeed)*3;
+
+
+        if (linkedCursedObject != null)
+        {
+            linkedCursedObject.GetComponent<CursedObject>().Release();
+        }
+
+        // Make player visible (after in POSSESS state)
+        //GetComponent<Collider2D>().enabled = true;
+        Physics2D.IgnoreLayerCollision(8, 0, false);
+        GetComponentInChildren<SpriteRenderer>().enabled = true;
+
+        // Change PlayerState to DEPART
+        if (playerState == PlayerState.POSSESS)
+        {
+            playerState = PlayerState.DEPART;
+
+            // Play Depart SFX
+            sfxPlayer.PlayDepartSfx();
+        }
+
+
     }
 
     // Return to linked cursed object
@@ -206,7 +240,9 @@ public class PlayerSoul : MonoBehaviour {
         DirectionGauge.reference = linkedCursedObject;
 
         // Make player invisible in POSSESS state
-        GetComponent<Collider2D>().enabled = false;
+        //GetComponent<Collider2D>().enabled = false;
+        Physics2D.IgnoreLayerCollision(8, 0, true);
+
         GetComponentInChildren<SpriteRenderer>().enabled = false;
     }
 
@@ -225,7 +261,7 @@ public class PlayerSoul : MonoBehaviour {
         Vector2 movementVector = linkedCursedObject.transform.position - transform.position;
         
         Debug.Log(movementVector);
-        Move(movementVector);
+        MoveBack(movementVector);
         isPullBack = true;
         //test = false;
     }
