@@ -30,7 +30,5 @@ public class FirewallEditor : Editor {
 		    serializedObject.ApplyModifiedProperties ();
             EditorUtility.SetDirty(firewall);
         }
-
-
 	}
 }
