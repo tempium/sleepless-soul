@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class PlayerSoul : MonoBehaviour {
 
-	public float moveSpeed = 1;
+    public float moveSpeed = 1;
 	public float timeThreshold = 1;
 
-	private int limitedSpeed = 3;
-
 	private Rigidbody2D rb;
-	public GameObject body;
 	private Animator anim;
 	private SpriteRenderer render;
 
-	public bool isMove = false;
-	public bool isPossess = false;
-	public bool isOut = false;
-	public bool isInside = false;
+	public GameObject linkedCursedObject;
+    private float distanceToLinkedCursedObject;
+    private float outerRadiusOfLinkedCursedObject;
+
+    // AudioPlayer for SFX related to PlayerSoul
+    private PlayerSoulSfxPlayer sfxPlayer;
+    
 	private float timer;
 
     public bool isPullBack;
@@ -25,78 +25,100 @@ public class PlayerSoul : MonoBehaviour {
     public bool isAtGauge;
     //public bool test;
 
-	// Use this for initialization
-	void Start () {
+    // Describes player state
+    public enum PlayerState
+    {
+        INITIAL,    // Initial spawned state. Must not be set again after initial set.
+        POSSESS,    // Stationary in a cursed object
+        DEPART,     // Moving away from cursed object (inside force field)
+        FLOAT,      // Free floating away from any force field
+        ARRIVE,     // Being sucked in by a cursed object (inside force field)
+        RETURN,     // Return to last cursed object because it hit a wall / stopped
+        DEFLECT     // Moving away from holy object. [UNUSED]
+    }
+    public PlayerState playerState = PlayerState.INITIAL;
+
+    // Use this for initialization
+    void Start () {
         isPullBack = false;
         isPullCurse = false;
         isAtGauge = true;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
         render = GetComponentInChildren<SpriteRenderer>();
-	}
+        sfxPlayer = GetComponent<PlayerSoulSfxPlayer>();
+    }
 
     void Update()
     {
-        PulltoGauge();
-        if (isPossess) {
-            float radius = body.GetComponentInChildren<OuterDetect>().GetComponent<CircleCollider2D>().radius;
-            float closeness = Mathf.Clamp01((transform.position - body.transform.position).magnitude / radius);
+        Debug.Log(playerState);
+
+        // Update distance to linked cursed object
+        distanceToLinkedCursedObject = (transform.position - linkedCursedObject.transform.position).magnitude;
+        outerRadiusOfLinkedCursedObject = linkedCursedObject.GetComponentInChildren<OuterDetect>().GetComponent<CircleCollider2D>().radius;
+
+        // Handle state change DEPART -> FLOAT
+        if (distanceToLinkedCursedObject > outerRadiusOfLinkedCursedObject && playerState == PlayerState.DEPART)
+        {
+            playerState = PlayerState.FLOAT;
+        }
+
+        // Handle animation of alpha value for ARRIVE
+        if (playerState == PlayerState.ARRIVE) {
+            float closeness = Mathf.Clamp01(distanceToLinkedCursedObject / outerRadiusOfLinkedCursedObject);
             render.color = new Color(1, 1, 1, closeness);
             transform.localScale = new Vector3(closeness, closeness, transform.localScale.z);
             float angle = Vector2.SignedAngle(new Vector2(0, 1), (transform.position - body.transform.position));
             transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(0, -angle, 1-closeness));
         }
 
-        if (isOut) {
-            if (body == null) {
+        // Handle animation of alpha value for DEPART
+        else if (playerState == PlayerState.DEPART) {
+            if (linkedCursedObject == null) {
                 anim.SetBool("IsOut", false);
                 isOut = false;
                 return;
             }
-            float radius = body.GetComponentInChildren<OuterDetect>().GetComponent<CircleCollider2D>().radius;
-            float closeness = (transform.position - body.transform.position).magnitude / radius;
-            if (closeness > 1) {
-                anim.SetBool("IsOut", false);
-                isOut = false;
-                return;
-            }
-
+          
+            float closeness = Mathf.Clamp01(distanceToLinkedCursedObject / outerRadiusOfLinkedCursedObject);
             render.color = new Color(1, 1, 1, closeness);
             transform.localScale = new Vector3(closeness, closeness, transform.localScale.z);
+        
+        // Other States
+        } else {
+            anim.SetBool("IsOut", false);
+            isOut = false;
+        }
+
+        // Reset alpha and size for other states
+        else
+        {
+            render.color = new Color(1, 1, 1, 1);
+            transform.localScale = new Vector3(1, 1, transform.localScale.z);
         }
     }
 
-    void FixedUpdate () {
-        if (isMove) {
-            if (rb.velocity.sqrMagnitude == 0 || Time.time - timer > timeThreshold) {
-                Stop();
+    void FixedUpdate()
+    {
+        if (playerState == PlayerState.FLOAT)
+        {
+            if (rb.velocity.sqrMagnitude == 0 || Time.time - timer > timeThreshold)
+            {
+                // FLOAT -> RETURN (1)
+                Debug.Log("Zero Speed");
+                playerState = PlayerState.RETURN;
+                sfxPlayer.PlaySuckbackSfx();
             }
         }
-    }
 
-    void PulltoGauge()
-    {
-        //if (!isPullCurse && isPullBack && Mathf.Abs(DirectionGauge.pos.x - transform.position.x) < 0.5 && Mathf.Abs(DirectionGauge.pos.y - transform.position.y) < 0.5) { 
-        //    Physics2D.IgnoreLayerCollision(1, 0, false);
-        //    isPullBack = false;
-        //    isAtGauge = true;
-
-        //}
-        //if (isAtGauge) { 
-        //    transform.position = new Vector2(DirectionGauge.pos.x, DirectionGauge.pos.y);
-        //}
-    }
-
-    public Vector2 getVelocity()
-    {
-        return rb.velocity;
-    }
-
-    public void Move(Vector2 direction) {
-        if (isMove || isPossess) {
-            return;
+        if (playerState == PlayerState.RETURN)
+        {
+            ReturnToLinkedCursedObject();
         }
-        //direction = new Vector2(0, 1);
+    }
+
+    // Move to specified direction (bi-directional)
+    public void Move(Vector2 direction) {
 
         anim.SetBool("IsOut", true);
         isOut = true;
@@ -106,76 +128,112 @@ public class PlayerSoul : MonoBehaviour {
         timer = Time.time;
         rb.velocity = direction.normalized * moveSpeed;
 
-        if (body != null) {
-            body.GetComponent<CursedObject>().Release();
+        if (linkedCursedObject != null) {
+            linkedCursedObject.GetComponent<CursedObject>().Release();
         }
+
+        // Make player visible (after in POSSESS state)
         GetComponent<Collider2D>().enabled = true;
         GetComponentInChildren<SpriteRenderer>().enabled = true;
+
+        // Change PlayerState to DEPART
+        if (playerState == PlayerState.POSSESS)
+        {
+            playerState = PlayerState.DEPART;
+
+            // Play Depart SFX
+            sfxPlayer.PlayDepartSfx();
+        }
+
+        
     }
 
-    public void Stop() { 
+    // Return to linked cursed object
+    // Any State can return
+    public void StopMovement() {
+        
         anim.SetBool("IsMove", false);
-        isMove = false;
+        rb.velocity = new Vector2(0, 0);
+        /*
         if (isOut) {
             anim.SetBool("IsOut", false);
             isOut = false;
-            body.GetComponentInChildren<OuterDetect>().StartPull();
-            Possessing(body);
+            linkedCursedObject.GetComponentInChildren<OuterDetect>().StartPull();
+            ArriveAt(linkedCursedObject);
         }
-        rb.velocity = new Vector2(0, 0);
-
-        if (!isInside && !isPossess) {
-            ReturnToGauge(DirectionGauge.reference.transform.position);
-            //test = true;
-        }
+        */
     }
 
-    public void Possessing(GameObject body) {
-        isMove = false;
-        isPossess = true;
-        anim.SetBool("IsOut", false);
+    // Called once on arriving inside outer boundary of cursed object. Called by outer radius of target object.
+    // target object will drag this player in. The player is responsible for animations (e.g. transparent).
+    // All states can transit to ARRIVE state
+    public void ArriveAt(GameObject targetCursedObject) {
+        StopMovement();
+        Debug.Log("Called Arrive At");
+        if (playerState != PlayerState.RETURN)
+        {
+            sfxPlayer.PlayPossessSfx();
+        }
+        playerState = PlayerState.ARRIVE;
+  
         isOut = false;
-        
+        anim.SetBool("IsOut", false);
         anim.SetBool("IsPossess", true);
         anim.speed = 2f / (transform.position - body.transform.position).magnitude;
-        this.body = body;
+        this.linkedCursedObject = targetCursedObject;
     }
 
+    // Transition to POSSESS state
     public void Possess() {
-        isPossess = false;
-        isMove = false;
-        isInside = true;
+
+        // Only ARRIVE state can call this method
+        Debug.Assert(playerState == PlayerState.ARRIVE, "Expected player in ARRIVE state");
+
+        playerState = PlayerState.POSSESS;
+        
         anim.SetBool("IsPossess", false);
+      
+        // Reset Rotation on Possess
         transform.rotation = Quaternion.identity;
-        Stop();
+        StopMovement();
 
         //transform.position = body.transform.position;
-        DirectionGauge.reference = body;
+        DirectionGauge.reference = linkedCursedObject;
 
+        // Make player invisible in POSSESS state
         GetComponent<Collider2D>().enabled = false;
         GetComponentInChildren<SpriteRenderer>().enabled = false;
     }
 
-    public bool StopAndNoCurse()
+    
+    //
+    public void ReturnToLinkedCursedObject()
     {
-        return !isInside && body == null;
-    }
-
-    public void ReturnToGauge(Vector2 pos)
-    {
+        Debug.Log("Called ReturnToLinkedObject");
         Physics2D.IgnoreLayerCollision(1, 0, true);
 
-        float usX = pos.x - transform.position.x;
-        float usY = pos.y - transform.position.y;
+        // Make Outer
+        linkedCursedObject.GetComponentInChildren<OuterDetect>().StartPull();
 
-        Move(new Vector2(usX, usY));
+        // Disable Velocity and apply manual movement
+        StopMovement();
+        Vector2 movementVector = linkedCursedObject.transform.position - transform.position;
+        
+        Debug.Log(movementVector);
+        Move(movementVector);
         isPullBack = true;
         //test = false;
     }
     
+    /// Collision Handlers ///
+
     private void OnCollisionEnter2D(Collision2D other) {
-        if (other.gameObject.CompareTag("Wall")) { 
-            Stop();
+        if (other.gameObject.CompareTag("Wall")) {
+            Debug.Log("Hit Wall"); 
+            StopMovement();
+            playerState = PlayerState.RETURN;
+            sfxPlayer.PlaySuckbackSfx();
+            // FLOAT -> RETURN (2)
         }
     }
 
@@ -192,16 +250,23 @@ public class PlayerSoul : MonoBehaviour {
     //    }
     //}
 
+    /// Getters ///
+
     public bool IsMove() {
-        return isMove;
+        return playerState == PlayerState.DEPART || playerState == PlayerState.FLOAT || playerState == PlayerState.RETURN;
     }
     public bool IsPossess() {
-        return isPossess;
+        return playerState == PlayerState.DEPART;
     }
     public bool IsInside() {
-        return isInside;
+        return playerState == PlayerState.POSSESS;
     }
     public bool IsOut() {
-        return isOut;
+        return playerState == PlayerState.ARRIVE;
+    }
+
+    public Vector2 getVelocity()
+    {
+        return rb.velocity;
     }
 }

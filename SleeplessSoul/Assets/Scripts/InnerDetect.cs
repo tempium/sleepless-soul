@@ -14,9 +14,13 @@ public class InnerDetect : MonoBehaviour {
 
     void OnTriggerStay2D(Collider2D other)
     {
+        Debug.Log("Inner Triggered");
+        /*
         if (playerSoul.isOut || (playerSoul.isPossess && !outerDetect.IsPull())) {
             return;
         }
+        */
+        Debug.Log(other.gameObject.name);
         other.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         if (other.CompareTag("Player")) {
             playerSoul.Possess();

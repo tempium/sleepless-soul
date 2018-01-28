@@ -49,7 +49,7 @@ public class DirectionGauge : MonoBehaviour
 		else if (Input.GetKeyDown(KeyCode.Return))
 		{
 			isSpace = false;
-			soul.ReturnToGauge(transform.position);
+			soul.ReturnToLinkedCursedObject();
 		}
 
 		if (isSpace)
