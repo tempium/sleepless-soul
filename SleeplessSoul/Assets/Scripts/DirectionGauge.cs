@@ -29,7 +29,9 @@ public class DirectionGauge : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		transform.position = reference.transform.position;
+        if (reference != null) {
+		    transform.position = reference.transform.position;
+        }
 		SoulCommand();
 		Rotate();
 

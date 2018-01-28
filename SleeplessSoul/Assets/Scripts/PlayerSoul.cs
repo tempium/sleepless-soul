@@ -54,8 +54,14 @@ public class PlayerSoul : MonoBehaviour {
         Debug.Log(playerState);
 
         // Update distance to linked cursed object
-        distanceToLinkedCursedObject = (transform.position - linkedCursedObject.transform.position).magnitude;
-        outerRadiusOfLinkedCursedObject = linkedCursedObject.GetComponentInChildren<OuterDetect>().GetComponent<CircleCollider2D>().radius;
+        if (linkedCursedObject != null)
+        {
+            distanceToLinkedCursedObject = (transform.position - linkedCursedObject.transform.position).magnitude;
+            outerRadiusOfLinkedCursedObject = linkedCursedObject.GetComponentInChildren<OuterDetect>().GetComponent<CircleCollider2D>().radius;
+        } else
+        {
+            return;
+        }
 
         // Handle state change DEPART -> FLOAT
         if (distanceToLinkedCursedObject > outerRadiusOfLinkedCursedObject && playerState == PlayerState.DEPART)
@@ -64,22 +70,35 @@ public class PlayerSoul : MonoBehaviour {
         }
 
         // Handle animation of alpha value for ARRIVE
-        if (playerState == PlayerState.ARRIVE) {
+        if (playerState == PlayerState.ARRIVE)
+        {
             float closeness = Mathf.Clamp01(distanceToLinkedCursedObject / outerRadiusOfLinkedCursedObject);
             render.color = new Color(1, 1, 1, closeness);
             transform.localScale = new Vector3(closeness, closeness, transform.localScale.z);
+            float angle = Vector2.SignedAngle(new Vector2(0, 1), (transform.position - linkedCursedObject.transform.position));
+            transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(0, -angle, 1 - closeness));
         }
 
         // Handle animation of alpha value for DEPART
-        else if (playerState == PlayerState.DEPART) {
+        else if (playerState == PlayerState.DEPART)
+        {
+            if (linkedCursedObject == null)
+            {
+                anim.SetBool("IsOut", false);
+                // isOut = false;
+                return;
+            }
+
             float closeness = Mathf.Clamp01(distanceToLinkedCursedObject / outerRadiusOfLinkedCursedObject);
             render.color = new Color(1, 1, 1, closeness);
             transform.localScale = new Vector3(closeness, closeness, transform.localScale.z);
+
         }
 
         // Reset alpha and size for other states
         else
         {
+            anim.SetBool("IsOut", false);
             render.color = new Color(1, 1, 1, 1);
             transform.localScale = new Vector3(1, 1, transform.localScale.z);
         }
@@ -106,14 +125,9 @@ public class PlayerSoul : MonoBehaviour {
 
     // Move to specified direction (bi-directional)
     public void Move(Vector2 direction) {
-        
-        /*
-        // Prevent multiple space-bar by user
-        if (isMove || isPossess) {
-            return;
-        }
 
-    */
+        anim.SetBool("IsOut", true);
+        // isOut = true;
         anim.SetBool("IsMove", true);
         timer = Time.time;
         rb.velocity = direction.normalized * moveSpeed;
@@ -146,6 +160,7 @@ public class PlayerSoul : MonoBehaviour {
         rb.velocity = new Vector2(0, 0);
         /*
         if (isOut) {
+            anim.SetBool("IsOut", false);
             isOut = false;
             linkedCursedObject.GetComponentInChildren<OuterDetect>().StartPull();
             ArriveAt(linkedCursedObject);
@@ -164,10 +179,13 @@ public class PlayerSoul : MonoBehaviour {
             sfxPlayer.PlayPossessSfx();
         }
         playerState = PlayerState.ARRIVE;
-        
-        anim.SetBool("IsPossess", true);
+  
         this.linkedCursedObject = targetCursedObject;
 
+        // isOut = false;
+        anim.SetBool("IsOut", false);
+        anim.SetBool("IsPossess", true);
+        anim.speed = 2f / (transform.position - linkedCursedObject.transform.position).magnitude;
     }
 
     // Transition to POSSESS state
@@ -179,7 +197,10 @@ public class PlayerSoul : MonoBehaviour {
         playerState = PlayerState.POSSESS;
         
         anim.SetBool("IsPossess", false);
-        // ReturnToLinkedCursedObject();
+      
+        // Reset Rotation on Possess
+        transform.rotation = Quaternion.identity;
+        StopMovement();
 
         //transform.position = body.transform.position;
         DirectionGauge.reference = linkedCursedObject;
