@@ -29,7 +29,9 @@ public class DirectionGauge : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		transform.position = reference.transform.position;
+        if (reference != null) {
+		    transform.position = reference.transform.position;
+        }
 		SoulCommand();
 		Rotate();
 
@@ -47,7 +49,7 @@ public class DirectionGauge : MonoBehaviour
 		else if (Input.GetKeyDown(KeyCode.Return))
 		{
 			isSpace = false;
-			soul.ReturnToGauge(transform.position);
+			soul.ReturnToLinkedCursedObject();
 		}
 
 		if (isSpace)

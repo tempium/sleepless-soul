@@ -18,11 +18,13 @@ public class OuterDetect : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && !(playerSoul.IsOut() && playerSoul.body.Equals(transform.parent.gameObject)) && !playerSoul.isPossess) {
+        if (other.CompareTag("Player") && 
+            !(playerSoul.playerState == PlayerSoul.PlayerState.DEPART && playerSoul.linkedCursedObject.Equals(transform.parent.gameObject)) && 
+            !(playerSoul.playerState == PlayerSoul.PlayerState.ARRIVE)) {
             anim.SetBool("IsPossess", true);
             pull = true;
-
-            other.GetComponent<PlayerSoul>().Possessing(transform.parent.gameObject);
+            Debug.Log("OnTriggerEnter2D in OuterDetect");
+            other.gameObject.GetComponent<PlayerSoul>().ArriveAt(transform.parent.gameObject);
         }
     }
 
