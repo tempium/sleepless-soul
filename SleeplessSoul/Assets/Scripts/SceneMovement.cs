@@ -36,6 +36,5 @@ public class SceneMovement : MonoBehaviour {
             }
         }
 	}
-    //
 
 }
