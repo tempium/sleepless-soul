@@ -6,11 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Boss/Main.unity
-    guid: 21e6845502711b749a990dcd8c9e062c
+    path: Assets/Scenes/Boss/Spon.unity
+    guid: d1a0e491f11cf8a4484cadd97b40dfe7
+  - enabled: 1
+    path: Assets/Scenes/Boss/Logo.unity
+    guid: 65a3639b86e1cfb42acb34de1cb575d3
+  - enabled: 1
+    path: Assets/Scenes/Boss/Start.unity
+    guid: 8f5b6f6025c902241bc439b7e564ac6d
   - enabled: 1
     path: Assets/Scenes/Boss/Dialog.unity
     guid: eebfe644c5298034f80a46d55ff43e8c
   - enabled: 1
-    path: Assets/Scenes/Boss/Start.unity
-    guid: 8f5b6f6025c902241bc439b7e564ac6d
+    path: Assets/Scenes/Boss/Main.unity
+    guid: 21e6845502711b749a990dcd8c9e062c
+  - enabled: 1
+    path: Assets/Scenes/Boss/Start 1.unity
+    guid: 9db1dcbd83c348d4ea33f240562c9d25

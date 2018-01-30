@@ -44,7 +44,7 @@ public class Dialog2 : MonoBehaviour {
         }
         else if (state == 2)
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(4);
 
         }
     }

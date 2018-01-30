@@ -20,10 +20,10 @@ public class OuterDetect : MonoBehaviour
     {
         if (other.CompareTag("Player") && 
             !(playerSoul.playerState == PlayerSoul.PlayerState.DEPART && playerSoul.linkedCursedObject.Equals(transform.parent.gameObject)) && 
-            !(playerSoul.playerState == PlayerSoul.PlayerState.ARRIVE)) {
+			!(playerSoul.playerState == PlayerSoul.PlayerState.ARRIVE) && !((playerSoul.playerState == PlayerSoul.PlayerState.RETURN) && !playerSoul.linkedCursedObject.Equals(transform.parent.gameObject))) {
             anim.SetBool("IsPossess", true);
             pull = true;
-            Debug.Log("OnTriggerEnter2D in OuterDetect");
+            //Debug.Log("OnTriggerEnter2D in OuterDetect");
             other.gameObject.GetComponent<PlayerSoul>().ArriveAt(transform.parent.gameObject);
         }
     }
@@ -31,7 +31,13 @@ public class OuterDetect : MonoBehaviour
     private void FixedUpdate() {
         if (pull) { 
             Vector2 newVector = transform.position - playerSoul.transform.position;
-            playerSoul.gameObject.GetComponent<Rigidbody2D>().velocity = newVector.normalized * 2;
+			if (newVector.magnitude < playerSoul.moveSpeed * Time.deltaTime) {
+				playerSoul.transform.position = transform.position;
+				playerSoul.gameObject.GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
+				return;
+			}
+//			playerSoul.gameObject.GetComponent<Rigidbody2D>().velocity = newVector.normalized * playerSoul.moveSpeed;
+			playerSoul.gameObject.GetComponent<Rigidbody2D>().velocity = newVector.normalized * 3;
         }
     }
 

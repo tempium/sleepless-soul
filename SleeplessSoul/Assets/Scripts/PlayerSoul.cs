@@ -137,9 +137,7 @@ public class PlayerSoul : MonoBehaviour {
         }
 
         // Make player visible (after in POSSESS state)
-        Physics2D.IgnoreLayerCollision(8, 0, false);
-
-        //GetComponent<Collider2D>().enabled = true;
+        GetComponent<Collider2D>().enabled = true;
         GetComponentInChildren<SpriteRenderer>().enabled = true;
 
         // Change PlayerState to DEPART
@@ -152,38 +150,6 @@ public class PlayerSoul : MonoBehaviour {
         }
 
         
-    }
-
-    public void MoveBack(Vector2 direction)
-    {
-
-        anim.SetBool("IsOut", true);
-        // isOut = true;
-        anim.SetBool("IsMove", true);
-        timer = Time.time;
-        rb.velocity = (direction.normalized * moveSpeed)*3;
-
-
-        if (linkedCursedObject != null)
-        {
-            linkedCursedObject.GetComponent<CursedObject>().Release();
-        }
-
-        // Make player visible (after in POSSESS state)
-        //GetComponent<Collider2D>().enabled = true;
-        Physics2D.IgnoreLayerCollision(8, 0, false);
-        GetComponentInChildren<SpriteRenderer>().enabled = true;
-
-        // Change PlayerState to DEPART
-        if (playerState == PlayerState.POSSESS)
-        {
-            playerState = PlayerState.DEPART;
-
-            // Play Depart SFX
-            sfxPlayer.PlayDepartSfx();
-        }
-
-
     }
 
     // Return to linked cursed object
@@ -207,11 +173,11 @@ public class PlayerSoul : MonoBehaviour {
     // All states can transit to ARRIVE state
     public void ArriveAt(GameObject targetCursedObject) {
         StopMovement();
-        Debug.Log("Called Arrive At");
-        if (playerState != PlayerState.RETURN)
-        {
+        //Debug.Log("Called Arrive At");
+//        if (playerState != PlayerState.RETURN)
+//        {
             sfxPlayer.PlayPossessSfx();
-        }
+//        }
         playerState = PlayerState.ARRIVE;
   
         this.linkedCursedObject = targetCursedObject;
@@ -219,14 +185,14 @@ public class PlayerSoul : MonoBehaviour {
         // isOut = false;
         anim.SetBool("IsOut", false);
         anim.SetBool("IsPossess", true);
-        anim.speed = 2f / (transform.position - linkedCursedObject.transform.position).magnitude;
+		anim.speed = 6f / Mathf.Pow((transform.position - linkedCursedObject.transform.position).magnitude, 2);
     }
 
     // Transition to POSSESS state
     public void Possess() {
 
         // Only ARRIVE state can call this method
-        Debug.Assert(playerState == PlayerState.ARRIVE, "Expected player in ARRIVE state");
+        // Debug.Assert(playerState == PlayerState.ARRIVE, "Expected player in ARRIVE state");
 
         playerState = PlayerState.POSSESS;
         
@@ -240,9 +206,7 @@ public class PlayerSoul : MonoBehaviour {
         DirectionGauge.reference = linkedCursedObject;
 
         // Make player invisible in POSSESS state
-        //GetComponent<Collider2D>().enabled = false;
-        Physics2D.IgnoreLayerCollision(8, 0, true);
-
+        GetComponent<Collider2D>().enabled = false;
         GetComponentInChildren<SpriteRenderer>().enabled = false;
     }
 
@@ -254,14 +218,14 @@ public class PlayerSoul : MonoBehaviour {
         Physics2D.IgnoreLayerCollision(1, 0, true);
 
         // Make Outer
-        linkedCursedObject.GetComponentInChildren<OuterDetect>().StartPull();
+//        linkedCursedObject.GetComponentInChildren<OuterDetect>().StartPull();
 
         // Disable Velocity and apply manual movement
         StopMovement();
-        Vector2 movementVector = linkedCursedObject.transform.position - transform.position;
+		Vector2 movementVector = (linkedCursedObject.transform.position - transform.position).normalized * moveSpeed;
         
         Debug.Log(movementVector);
-        MoveBack(movementVector);
+        Move(movementVector);
         isPullBack = true;
         //test = false;
     }
@@ -272,8 +236,10 @@ public class PlayerSoul : MonoBehaviour {
         if (other.gameObject.CompareTag("Wall")) {
             Debug.Log("Hit Wall"); 
             StopMovement();
+			if (playerState == PlayerState.DEPART || playerState == PlayerState.POSSESS) {
+				ArriveAt (linkedCursedObject);
+			}
             playerState = PlayerState.RETURN;
-            sfxPlayer.PlaySuckbackSfx();
             // FLOAT -> RETURN (2)
         }
     }
@@ -297,13 +263,13 @@ public class PlayerSoul : MonoBehaviour {
         return playerState == PlayerState.DEPART || playerState == PlayerState.FLOAT || playerState == PlayerState.RETURN;
     }
     public bool IsPossess() {
-        return playerState == PlayerState.DEPART;
+		return playerState == PlayerState.ARRIVE || playerState == PlayerState.RETURN;
     }
     public bool IsInside() {
-        return playerState == PlayerState.POSSESS;
+		return playerState == PlayerState.POSSESS;
     }
     public bool IsOut() {
-        return playerState == PlayerState.ARRIVE;
+        return playerState == PlayerState.DEPART;
     }
 
     public Vector2 getVelocity()

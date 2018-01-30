@@ -170,6 +170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4765350376813808}
   - component: {fileID: 212909107204554352}
+  - component: {fileID: 95001430586205048}
   m_Layer: 0
   m_Name: MonkSprite
   m_TagString: Untagged
@@ -591,6 +592,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.05
+--- !u!95 &95001430586205048
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1674993818137110}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4f95fb5146f8fe640babacd1f0f8b441, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95210232746242160
 Animator:
   serializedVersion: 3
@@ -598,9 +616,9 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1945073233247640}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 80b0f220fd0155749acc2cb5363dd7cf, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9358ac9200ba91f48982a10d79d5cda4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -615,9 +633,9 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1414319467025740}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 80b0f220fd0155749acc2cb5363dd7cf, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9358ac9200ba91f48982a10d79d5cda4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -632,9 +650,9 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1456784160786462}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 80b0f220fd0155749acc2cb5363dd7cf, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9358ac9200ba91f48982a10d79d5cda4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

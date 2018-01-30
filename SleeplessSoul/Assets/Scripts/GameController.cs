@@ -43,7 +43,7 @@ public class GameController : MonoBehaviour {
 	void Update () {
         GameObject lowestFrame = frameBuffer.Peek();
 
-        Debug.Log(lowestFrame.transform.position);
+        //Debug.Log(lowestFrame.transform.position);
         // Check if the lowestFrame is below the screen
         if (lowestFrame.transform.position.y <= -screenHeight)
         {
